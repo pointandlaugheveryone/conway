@@ -1,4 +1,4 @@
-public struct Coords(int x, int y)
+public readonly struct Coords(int x, int y)
 {
     public int X { get; } = x;
     public int Y { get; } = y;
