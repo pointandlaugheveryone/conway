@@ -13,16 +13,17 @@ namespace Conway.Models {
         public int Age {get; set;}
         public SolidColorBrush Colour {get; set;}
 
-        public Cell(int x, int y) {
+        public Cell(int x, int y, bool isAlive) {
             this.X = x;
             this.Y = y;
-            // IsAlive = Helper.RandomiseLife();
+            this.IsAlive = isAlive;
             Age = 1;
             Colour = IsAlive ? new SolidColorBrush(Colors.White) : new SolidColorBrush(Colors.Black);
         }
     }
 
     /**
+    TODO:
     class ColorCell : Cell {
         private static readonly List<\SolidColorBrush> ColorMap =  // indexed based on Age property to assign color 
         new()
