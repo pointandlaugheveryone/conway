@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using Avalonia.Media;
 using Conway.ViewModels;
-using Metsys.Bson;
+using System.Linq;
 
 
 namespace Conway.Models {
@@ -10,15 +10,15 @@ namespace Conway.Models {
         public int X {get;}
         public int Y {get;}
         public bool IsAlive {get; set;}
-        public int Age {get; set;}
+        // public int Age {get; set;}       Part of a different simulation, possibly add later
         public SolidColorBrush Colour {get; set;}
-        public int[,] Neighbors {get;} = new int[8,2];
+        public int[,] NeighborCoords {get;} = new int[8,2];
 
         public Cell(int x, int y, bool isAlive) {
             this.X = x;
             this.Y = y;
             this.IsAlive = isAlive;
-            Age = 1;
+            //Age = 1;
             Colour = IsAlive ? new SolidColorBrush(Colors.White) : new SolidColorBrush(Colors.Black);
         }
 
@@ -29,15 +29,23 @@ namespace Conway.Models {
                 {+1, -1}, {+1, 0}, {+1, +1} 
             };
             for (int i = 0; i < 8; i++) {  // wrap-around edges indexing; NOTE: do not refactor
-                Neighbors[i,0] = (this.X + offsets[i,0] + rows) % rows;
-                Neighbors[i,1] = (this.Y + offsets[i,1] + columns) % columns;
+                NeighborCoords[i,0] = (this.X + offsets[i,0] + rows) % rows;
+                NeighborCoords[i,1] = (this.Y + offsets[i,1] + columns) % columns;
             }
+        }
+
+        public Cell[] GetNeighbors(Cell[,] allCells) {
+            Cell[] Neighbors = new Cell[8];
+            for (int i = 0; i < 8; i++) {
+                Neighbors[i] = allCells[NeighborCoords[i,0], NeighborCoords[i,1]];
+            }
+            return Neighbors;
         }
     }
 
     /**
-    TODO: maybe eventually expand this to a different simulation type
-
+    TODO: Cyclic cellular automata
+    
     class ColorCell : Cell {
         private static readonly List<\SolidColorBrush> ColorMap =  // indexed based on Age property to assign color 
         new()
