@@ -17,6 +17,6 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <TextBlock Text="Conway's game of life" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
 </Window>

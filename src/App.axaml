@@ -4,6 +4,11 @@
              xmlns:local="using:Conway"
              RequestedThemeVariant="Default">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+    
+    <Application.Resources>
+        <SolidColorBrush x:Key="AliveColor">#FFFFFF</SolidColorBrush>
+        <SolidColorBrush x:Key="DeadColor">#000000</SolidColorBrush>
+    </Application.Resources>
 
     <Application.DataTemplates>
         <local:ViewLocator/>
