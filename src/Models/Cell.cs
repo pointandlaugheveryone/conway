@@ -9,7 +9,7 @@ public class Cell {
     public bool IsAlive {get; set;}
     // public int Age {get; set;}       Part of a different simulation, possibly add later
     public SolidColorBrush CellColor {get; set;}
-    private SolidColorBrush AliveColor = (SolidColorBrush)Application.Current.Resources["AliveColor"]!;
+    private SolidColorBrush AliveColor = (SolidColorBrush)Application.Current!.Resources["AliveColor"]!;
     private SolidColorBrush deadColor = (SolidColorBrush)Application.Current.Resources["DeadColor"]!;
     public int[,] NeighborCoords {get;} = new int[8,2];
 
