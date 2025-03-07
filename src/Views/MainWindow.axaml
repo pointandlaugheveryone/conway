@@ -7,15 +7,13 @@
         x:Class="Conway.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Conway demo"
+        Title="Conway's Game of Life'"
         VerticalContentAlignment="Center"
         Height="600"
         Width="600"
         >
 
-    <Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
+    
 
     <TextBlock Text="Conway's game of life" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 

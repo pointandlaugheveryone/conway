@@ -7,7 +7,7 @@ public class Cell {
     public int X {get;}
     public int Y {get;}
     public bool IsAlive {get; set;}
-    // public int Age {get; set;}       Part of a different simulation, possibly add later
+    // public int Age {get; set;}       Part of a different simulation, maybe add later
     public SolidColorBrush CellColor {get; set;}
     private SolidColorBrush AliveColor = (SolidColorBrush)Application.Current!.Resources["AliveColor"]!;
     private SolidColorBrush deadColor = (SolidColorBrush)Application.Current.Resources["DeadColor"]!;
@@ -28,7 +28,7 @@ public class Cell {
             {0, -1},            {0, +1}, 
             {+1, -1}, {+1, 0}, {+1, +1} 
         };
-        for (int i = 0; i < 8; i++) {  // wrap-around edges indexing; NOTE: do not refactor
+        for (int i = 0; i < 8; i++) {  // wrap-around edges indexing (this is so cool)
             NeighborCoords[i,0] = (this.X + offsets[i,0] + rows) % rows;
             NeighborCoords[i,1] = (this.Y + offsets[i,1] + columns) % columns;
         }
