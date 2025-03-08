@@ -25,7 +25,8 @@ public class Grid {
     }
 
 
-    private void GenerateNextGen() {
+    // pregenerate the next visible grid
+    private void GenerateNextGen() { 
         for (int row = 0; row < this.Rows; row++) {
             for (int column = 0; column < this.Columns; column++) {
 

@@ -3,9 +3,44 @@
         xmlns:vm="using:Conway.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="600"
         x:Class="Conway.Views.SimulationWindow"
         x:DataType="vm:SimulationViewModel"
-        Title="Conway's Game of Life">
+        CanResize="False"
+        VerticalContentAlignment="Center"
+        Title="Conway's Game of Life"
+        Height="600"
+        Width="600"
+        >
+    <Window.Styles>
+          
+    </Window.Styles>
+
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10" Spacing="5">
+      <Border 
+        BorderThickness="1" BorderBrush="White" Background="Black" CornerRadius="5" 
+        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+        Height="550"
+        >
+        <UniformGrid Name="Grid"
+          Rows="{Binding Rows, Mode=OneTime}"
+          Columns="{Binding Columns, Mode=OneTime}"
+          VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch">
+                <UniformGrid.DataTemplates>
+                    <DataTemplate x:DataType="vm:Cell">
+                        <Rectangle 
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch"
+                            Stretch="Fill"
+                            Width="5" Height="5"
+                            Classes.young="{Binding IsYoung, Mode=OneWay}"
+                            Classes.old="{Binding IsOld, Mode=OneWay}" />
+                    </DataTemplate>
+                </UniformGrid.DataTemplates>
+            </UniformGrid>
+      </Border>
+    </StackPanel>
+
   Welcome to Avalonia!
 </Window>
