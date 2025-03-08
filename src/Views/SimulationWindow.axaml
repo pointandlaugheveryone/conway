@@ -1,46 +1,54 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:Conway.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="600"
-        x:Class="Conway.Views.SimulationWindow"
-        x:DataType="vm:SimulationViewModel"
-        CanResize="False"
-        VerticalContentAlignment="Center"
-        Title="Conway's Game of Life"
-        Height="600"
-        Width="600"
-        >
-    <Window.Styles>
-          
-    </Window.Styles>
+<Window
+  x:Class="Conway.Views.SimulationWindow"
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:vm="using:Conway.ViewModels"
+  xmlns:m="using:Conway.Models"
+  Title="Conway's Game of Life"
+  Width="600"
+  Height="600"
+  VerticalContentAlignment="Center"
+  d:DesignHeight="600"
+  d:DesignWidth="600"
+  x:DataType="vm:SimulationViewModel"
+  CanResize="False"
+  mc:Ignorable="d">
 
-    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10" Spacing="5">
-      <Border 
-        BorderThickness="1" BorderBrush="White" Background="Black" CornerRadius="5" 
-        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-        Height="550"
-        >
-        <UniformGrid Name="Grid"
-          Rows="{Binding Rows, Mode=OneTime}"
-          Columns="{Binding Columns, Mode=OneTime}"
-          VerticalAlignment="Stretch"
-          HorizontalAlignment="Stretch">
-                <UniformGrid.DataTemplates>
-                    <DataTemplate x:DataType="vm:Cell">
-                        <Rectangle 
-                            VerticalAlignment="Stretch"
-                            HorizontalAlignment="Stretch"
-                            Stretch="Fill"
-                            Width="5" Height="5"
-                            Classes.young="{Binding IsYoung, Mode=OneWay}"
-                            Classes.old="{Binding IsOld, Mode=OneWay}" />
-                    </DataTemplate>
-                </UniformGrid.DataTemplates>
-            </UniformGrid>
-      </Border>
-    </StackPanel>
+  <StackPanel
+    Margin="10"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    Spacing="5">
+    <Border
+      Height="550"
+      HorizontalAlignment="Stretch"
+      VerticalAlignment="Stretch"
+      Background="Black"
+      BorderBrush="White"
+      BorderThickness="1"
+      CornerRadius="5">
+      <UniformGrid
+        Name="Grid"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        Columns="{Binding Columns, Mode=OneTime}"
+        Rows="{Binding Rows, Mode=OneTime}">
+        <UniformGrid.DataTemplates>
+          <DataTemplate x:DataType="m:Cell">
+            <Rectangle
+              Width="5"
+              Height="5"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              Stretch="Fill"
+              Fill="{Binding CellColor}" />
+          </DataTemplate>
+        </UniformGrid.DataTemplates>
+      </UniformGrid>
+    </Border>
 
-  Welcome to Avalonia!
+
+  </StackPanel>
 </Window>

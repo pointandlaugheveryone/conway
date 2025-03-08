@@ -2,6 +2,7 @@ using Conway.Models;
 using System.Timers;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.Generic;
 
 
 namespace Conway.ViewModels;
@@ -14,7 +15,7 @@ public partial class SimulationViewModel : ViewModelBase {
     };
     //[ObservableProperty] // text for buttons
     string TimerText;
-    //[ObservableProperty] // visible in a top bar somewhere
+    //[ObservableProperty] // visible in a top bar
     public string GenerationsText => $"{Rows},{Columns}\nCurrently generation {Generations}";
     
     public SimulationViewModel(int rows, int columns, int generations) {
