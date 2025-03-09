@@ -5,18 +5,27 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Avalonia.Threading;
+using System;
 
 
 namespace Conway.ViewModels;
 public partial class SimulationViewModel : ViewModelBase {
     [ObservableProperty]
     private bool isRunning;
-    partial void OnIsRunningChanged(bool value) { // needs to be partial
-        RunTimer.Enabled = value; 
-        TimerText = value ? "Pause" : "Run"; // controls updates with timer ; reasonable speed
+    partial void OnIsRunningChanged(bool value) { 
+        if (value) {
+            RunTimer.Start();
+            Console.WriteLine("Timer started");
+        }
+        else {
+            RunTimer.Stop();
+            Console.WriteLine("Timer stopped");
+        }
+        TimerText = value ? "Pause" : "Run"; 
     }
     private int generations; 
-    private readonly Timer RunTimer = new(200) { Enabled = false };
+    private readonly DispatcherTimer RunTimer = new() { IsEnabled = false };
     [ObservableProperty] // @ notes.md
     private string timerText = "Run"; 
     public int Rows {get;}
@@ -36,6 +45,7 @@ public partial class SimulationViewModel : ViewModelBase {
     private void ToggleRun()
     {
         IsRunning = !IsRunning; // run of simulation depends on timer itself, start w enable
+        Console.WriteLine("IsRunning changed");
     }
     public SimulationViewModel(int rows, int columns, int generations) {
         this.Rows = rows;
@@ -44,10 +54,12 @@ public partial class SimulationViewModel : ViewModelBase {
         
         Grid grid = new(rows, columns);
         Cells = grid.ParseCells();
-
-        RunTimer.Elapsed += (_, _) => { 
+        RunTimer.Interval = TimeSpan.FromMilliseconds(200);
+        RunTimer.Tick += (_, _) => { 
             grid.GenerateNextGen();
             Generations++;
+            Console.WriteLine("Generation updated");
         };
+        Console.WriteLine("SimulationWindow init");
     }
 }

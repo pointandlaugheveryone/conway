@@ -1,6 +1,7 @@
 using Avalonia.Media;
 using Avalonia;
 using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 
 
 namespace Conway.Models;
@@ -30,6 +31,7 @@ public partial class Cell : ObservableObject {
         this.Y = y;
         this.IsAlive = isAlive;
         CellColor = IsAlive ? aliveColor : deadColor;
+        Console.WriteLine($"cell{x},{y} color updated");
     }
 
     public void GetNeighborCoords(int rows, int columns) {

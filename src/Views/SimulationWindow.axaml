@@ -7,14 +7,14 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:vm="using:Conway.ViewModels"
   Title="Conway's Game of Life"
-  RequestedThemeVariant="Dark"
   Width="600"
   Height="650"
   VerticalContentAlignment="Center"
-  d:DesignWidth="600"
   d:DesignHeight="650"
+  d:DesignWidth="600"
   x:DataType="vm:SimulationViewModel"
   CanResize="False"
+  RequestedThemeVariant="Dark"
   mc:Ignorable="d">
 
   <StackPanel
@@ -22,10 +22,10 @@
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
     Spacing="5">
-      
+
     <Border
-      Height="580"
       Width="580"
+      Height="580"
       HorizontalAlignment="Stretch"
       VerticalAlignment="Stretch"
       Background="Black"
@@ -45,28 +45,28 @@
               Height="5"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch"
-              Stretch="Fill"
-              Fill="{Binding CellColor}"/>
+              Fill="{Binding CellColor}"
+              Stretch="Fill" />
           </DataTemplate>
         </UniformGrid.DataTemplates>
       </UniformGrid>
     </Border>
-    <StackPanel Orientation="Horizontal" 
-    VerticalAlignment="Center"
-    HorizontalAlignment="Center" 
-    Spacing="5" 
-    Margin="5">
-      <ToggleButton
-      Width="100"
-      Height="30"
+    <StackPanel
+      Margin="5"
       HorizontalAlignment="Center"
       VerticalAlignment="Center"
-      HorizontalContentAlignment="Center"
-      VerticalContentAlignment="Center"
-      FontWeight="Bold"
-      Content="{Binding TimerText}"
-      Command="{Binding RunCommand}"
-      IsChecked="{Binding IsRunning, Mode=TwoWay}" />
+      Orientation="Horizontal"
+      Spacing="5">
+      <ToggleButton
+        Width="100"
+        Height="30"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        HorizontalContentAlignment="Center"
+        VerticalContentAlignment="Center"
+        Content="{Binding TimerText}"
+        FontWeight="Bold"
+        IsChecked="{Binding IsRunning, Mode=TwoWay}" />
     </StackPanel>
   </StackPanel>
 </Window>
