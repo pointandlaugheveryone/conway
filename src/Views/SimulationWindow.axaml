@@ -7,20 +7,15 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:vm="using:Conway.ViewModels"
   Title="Conway's Game of Life"
+  RequestedThemeVariant="Dark"
   Width="600"
-  Height="600"
+  Height="650"
   VerticalContentAlignment="Center"
-  d:DesignHeight="600"
   d:DesignWidth="600"
+  d:DesignHeight="650"
   x:DataType="vm:SimulationViewModel"
   CanResize="False"
   mc:Ignorable="d">
-
-  <Window.Styles>
-        <Style Selector="Rectangle">
-            <Setter Property="Fill" Value="Binding {Rectangle.CellColor}"></Setter>
-        </Style>
-    </Window.Styles>
 
   <StackPanel
     Margin="10"
@@ -29,12 +24,13 @@
     Spacing="5">
       
     <Border
-      Height="800"
+      Height="580"
+      Width="580"
       HorizontalAlignment="Stretch"
       VerticalAlignment="Stretch"
       Background="Black"
       BorderBrush="White"
-      BorderThickness="1"
+      BorderThickness="2"
       CornerRadius="5">
       <UniformGrid
         Name="Grid"
@@ -49,22 +45,28 @@
               Height="5"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch"
-              Stretch="Fill"/>
+              Stretch="Fill"
+              Fill="{Binding CellColor}"/>
           </DataTemplate>
         </UniformGrid.DataTemplates>
       </UniformGrid>
     </Border>
     <StackPanel Orientation="Horizontal" 
+    VerticalAlignment="Center"
     HorizontalAlignment="Center" 
     Spacing="5" 
     Margin="5">
       <ToggleButton
+      Width="100"
+      Height="30"
       HorizontalAlignment="Center"
       VerticalAlignment="Center"
-      Background="Purple"
-      Command="{Binding RunCommand}"
+      HorizontalContentAlignment="Center"
+      VerticalContentAlignment="Center"
+      FontWeight="Bold"
       Content="{Binding TimerText}"
-      IsChecked="{Binding toggle, Mode=TwoWay}" />
+      Command="{Binding RunCommand}"
+      IsChecked="{Binding IsRunning, Mode=TwoWay}" />
     </StackPanel>
   </StackPanel>
 </Window>

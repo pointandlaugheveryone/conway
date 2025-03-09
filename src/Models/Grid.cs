@@ -35,38 +35,28 @@ public class Grid {
         return cellList;
     }
     // pregenerate the next visible grid
-    private void GenerateNextGen() { 
+    public void GenerateNextGen() { 
+        bool[,] nextStates = new bool[Rows, Columns];
+
         for (int row = 0; row < this.Rows; row++) {
             for (int column = 0; column < this.Columns; column++) {
-
                 Cell currentCell = this.Cells[row, column];
                 Cell[] Neighbors = currentCell.GetNeighbors(Cells);
-                int AliveNeighbors = Neighbors.Where(cell => cell.IsAlive == true).Count();
+                int AliveNeighbors = Neighbors.Count(n => n.IsAlive);
+                bool nextAlive =
+                (currentCell.IsAlive && (AliveNeighbors == 2 || 
+                AliveNeighbors == 3)) ||
+                (!currentCell.IsAlive && AliveNeighbors == 3);
                 
-                bool nextIsAlive = false;
-                if (
-                    ((currentCell.IsAlive == true) && 
-                    (AliveNeighbors == 2  || AliveNeighbors == 3)) ||
-                    ((currentCell.IsAlive == false) && 
-                    (AliveNeighbors == 3))
-                    ) 
-                    { nextIsAlive = true;
-                }
-
-                
-                currentCell.UpdateColor();
-                NextGeneration[row, column] = new Cell(row, column, nextIsAlive);
+                nextStates[row, column] = nextAlive;
+            }
+        }
+        for (int row = 0; row < Rows; row++) {
+            for (int column = 0; column < Columns; column++) {
+                Cells[row, column].IsAlive = nextStates[row, column];
             }
         }
     }
 
-    public void Update() {
-            GenerateNextGen();
-            
-            for (int row = 0; row < this.Rows; row++) {
-                for (int column = 0; column < this.Columns; column++) {
-                    this.Cells[row, column] = this.NextGeneration[row, column];
-                }
-            }
-    }
+    
 }

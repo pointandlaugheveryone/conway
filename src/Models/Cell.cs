@@ -1,17 +1,27 @@
 using Avalonia.Media;
 using Avalonia;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 
 namespace Conway.Models;
-public class Cell {
+
+public partial class Cell : ObservableObject {
+    private bool _isAlive;
+    public bool IsAlive {
+        get => _isAlive;
+        set {
+            if (SetProperty(ref _isAlive, value)) { 
+                CellColor = value ? aliveColor : deadColor; 
+            }
+        }
+    }
     public int X {get;}
     public int Y {get;}
-    public bool IsAlive {get; set;}
-    // public int Age {get; set;}      
-    
-    public SolidColorBrush CellColor {get; set;}
-    private SolidColorBrush AliveColor = (SolidColorBrush)Application.Current!.Resources["AliveColor"]!;
-    private SolidColorBrush deadColor = (SolidColorBrush)Application.Current.Resources["DeadColor"]!;
+
+    [ObservableProperty]
+    private SolidColorBrush cellColor;
+    private readonly SolidColorBrush aliveColor = (SolidColorBrush)Application.Current!.Resources["AliveColor"]!;
+    private readonly SolidColorBrush deadColor = (SolidColorBrush)Application.Current.Resources["DeadColor"]!;
     public int[,] NeighborCoords {get;} = new int[8,2];
 
 
@@ -19,8 +29,7 @@ public class Cell {
         this.X = x;
         this.Y = y;
         this.IsAlive = isAlive;
-        //Age = 1;
-        CellColor = IsAlive ? new SolidColorBrush(Colors.White) : new SolidColorBrush(Colors.Black);
+        CellColor = IsAlive ? aliveColor : deadColor;
     }
 
     public void GetNeighborCoords(int rows, int columns) {
@@ -44,27 +53,4 @@ public class Cell {
         }
         return Neighbors;
     }
-
-    public void UpdateColor() {
-        CellColor = (IsAlive == true) ? AliveColor : deadColor;
-    }
 }
-
-/**
-TODO: Cyclic cellular automata
-
-class ColorCell : Cell {
-    private static readonly List<\SolidColorBrush> ColorMap =  // indexed based on Age property to assign color 
-    new()
-    {
-        { new SolidColorBrush(Colors.Color0) },
-        { new SolidColorBrush(Colors.Color1) },
-        { new SolidColorBrush(Colors.Color2) },
-        { new SolidColorBrush(Colors.Color3) }
-    };
-    
-    public ColorCell(int x, int y) : base(x, y) {
-        LifeStatus = Helper.RandomiseLife()
-    }
-}
-**/

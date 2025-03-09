@@ -12,11 +12,12 @@
     d:DesignHeight="600"
     d:DesignWidth="600"
     x:DataType="vm:MainWindowViewModel"
-    Background="Black"
+    RequestedThemeVariant="Dark"
     Icon="/Assets/avalonia-logo.ico"
     mc:Ignorable="d">
 
     <Grid RowDefinitions="auto, auto">
+        
         <StackPanel Grid.Row="0">
             <TextBlock
                 Margin="0,0,0,12"
@@ -43,7 +44,6 @@
                 Height="40"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
-                Background="White"
                 FontSize="16"
                 FontWeight="Bold"
                 Command="{Binding RunSimulationCommand}">
