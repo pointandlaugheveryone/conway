@@ -16,11 +16,9 @@ public partial class SimulationViewModel : ViewModelBase {
     partial void OnIsRunningChanged(bool value) { 
         if (value) {
             RunTimer.Start();
-            Console.WriteLine("Timer started");
         }
         else {
             RunTimer.Stop();
-            Console.WriteLine("Timer stopped");
         }
         TimerText = value ? "Pause" : "Run"; 
     }
@@ -45,7 +43,6 @@ public partial class SimulationViewModel : ViewModelBase {
     private void ToggleRun()
     {
         IsRunning = !IsRunning; // run of simulation depends on timer itself, start w enable
-        Console.WriteLine("IsRunning changed");
     }
     public SimulationViewModel(int rows, int columns, int generations) {
         this.Rows = rows;
@@ -58,8 +55,6 @@ public partial class SimulationViewModel : ViewModelBase {
         RunTimer.Tick += (_, _) => { 
             grid.GenerateNextGen();
             Generations++;
-            Console.WriteLine("Generation updated");
         };
-        Console.WriteLine("SimulationWindow init");
     }
 }

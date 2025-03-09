@@ -11,8 +11,18 @@ public partial class Cell : ObservableObject {
     public bool IsAlive {
         get => _isAlive;
         set {
-            if (SetProperty(ref _isAlive, value)) { 
-                CellColor = value ? aliveColor : deadColor; 
+            if (SetProperty(ref _isAlive, value)) {
+                var brushResourceKey = value ? "AliveColor" : "DeadColor";
+                if (Application.Current!.Resources.TryGetValue(brushResourceKey, out var resource)) {
+                    if (resource is Color color)
+                        CellColor = new SolidColorBrush(color);
+                    else if (resource is SolidColorBrush sb)
+                        CellColor = new SolidColorBrush(sb.Color);
+                }
+                else {
+                    // Fallback colors if resource isn't defined
+                    CellColor = value ? new SolidColorBrush(Colors.White) : new SolidColorBrush(Colors.Black);
+                }
             }
         }
     }
@@ -20,18 +30,15 @@ public partial class Cell : ObservableObject {
     public int Y {get;}
 
     [ObservableProperty]
-    private SolidColorBrush cellColor;
-    private readonly SolidColorBrush aliveColor = (SolidColorBrush)Application.Current!.Resources["AliveColor"]!;
-    private readonly SolidColorBrush deadColor = (SolidColorBrush)Application.Current.Resources["DeadColor"]!;
+    private SolidColorBrush cellColor = new SolidColorBrush(Colors.Black);
     public int[,] NeighborCoords {get;} = new int[8,2];
 
 
     public Cell(int x, int y, bool isAlive) {
         this.X = x;
         this.Y = y;
+        _isAlive = !isAlive;
         this.IsAlive = isAlive;
-        CellColor = IsAlive ? aliveColor : deadColor;
-        Console.WriteLine($"cell{x},{y} color updated");
     }
 
     public void GetNeighborCoords(int rows, int columns) {

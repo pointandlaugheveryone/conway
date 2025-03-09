@@ -22,7 +22,6 @@ public class Grid {
                 this.Cells[row, column].GetNeighborCoords(rows, columns);
             }
         }
-        // TODO: timer
     }
 
     public ObservableCollection<Cell> ParseCells() {   // literally just to convert it because avalonia
