@@ -7,7 +7,7 @@ public class Cell {
     public int X {get;}
     public int Y {get;}
     public bool IsAlive {get; set;}
-    // public int Age {get; set;}       TODO: (?) implement the age-inclusive conway version
+    // public int Age {get; set;}      
     
     public SolidColorBrush CellColor {get; set;}
     private SolidColorBrush AliveColor = (SolidColorBrush)Application.Current!.Resources["AliveColor"]!;

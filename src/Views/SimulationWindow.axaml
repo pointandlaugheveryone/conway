@@ -3,9 +3,9 @@
   xmlns="https://github.com/avaloniaui"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:m="using:Conway.Models"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:vm="using:Conway.ViewModels"
-  xmlns:m="using:Conway.Models"
   Title="Conway's Game of Life"
   Width="600"
   Height="600"
@@ -16,13 +16,20 @@
   CanResize="False"
   mc:Ignorable="d">
 
+  <Window.Styles>
+        <Style Selector="Rectangle">
+            <Setter Property="Fill" Value="Binding {Rectangle.CellColor}"></Setter>
+        </Style>
+    </Window.Styles>
+
   <StackPanel
     Margin="10"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
     Spacing="5">
+      
     <Border
-      Height="550"
+      Height="800"
       HorizontalAlignment="Stretch"
       VerticalAlignment="Stretch"
       Background="Black"
@@ -42,13 +49,22 @@
               Height="5"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch"
-              Stretch="Fill"
-              Fill="{Binding CellColor}" />
+              Stretch="Fill"/>
           </DataTemplate>
         </UniformGrid.DataTemplates>
       </UniformGrid>
     </Border>
-
-
+    <StackPanel Orientation="Horizontal" 
+    HorizontalAlignment="Center" 
+    Spacing="5" 
+    Margin="5">
+      <ToggleButton
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Background="Purple"
+      Command="{Binding RunCommand}"
+      Content="{Binding TimerText}"
+      IsChecked="{Binding toggle, Mode=TwoWay}" />
+    </StackPanel>
   </StackPanel>
 </Window>

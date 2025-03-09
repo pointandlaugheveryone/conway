@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.Linq;
 
 
@@ -24,7 +25,15 @@ public class Grid {
         // TODO: timer
     }
 
-
+    public ObservableCollection<Cell> ParseCells() {   // literally just to convert it because avalonia
+        ObservableCollection<Cell> cellList = new();
+        for (int row = 0; row < Rows; row++) {
+            for (int column = 0; column < Columns; column++) {
+                cellList.Add(Cells[row, column]);
+            }
+        }
+        return cellList;
+    }
     // pregenerate the next visible grid
     private void GenerateNextGen() { 
         for (int row = 0; row < this.Rows; row++) {

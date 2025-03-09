@@ -1,20 +1,55 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:Conway.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="600"
-        x:Class="Conway.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="Conway's Game of Life'"
-        VerticalContentAlignment="Center"
-        Height="600"
-        Width="600"
-        >
+<Window
+    x:Class="Conway.Views.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Conway.ViewModels"
+    Title="Conway's Game of Life'"
+    Width="600"
+    Height="600"
+    VerticalContentAlignment="Center"
+    d:DesignHeight="600"
+    d:DesignWidth="600"
+    x:DataType="vm:MainWindowViewModel"
+    Background="Black"
+    Icon="/Assets/avalonia-logo.ico"
+    mc:Ignorable="d">
 
-    
+    <Grid RowDefinitions="auto, auto">
+        <StackPanel Grid.Row="0">
+            <TextBlock
+                Margin="0,0,0,12"
+                FontSize="28"
+                FontWeight="Bold"
+                Foreground="#6c5ce7"
+                Text="Conway's Game of Life"
+                TextAlignment="Center" />
+            <TextBlock
+                FontSize="14"
+                Foreground="White"
+                Text="One of the least original coding projects known to man."
+                TextAlignment="Center" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="1"
+            Margin="0,30,0,0"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
 
-    <TextBlock Text="Conway's game of life" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <!--  todo: StackPanel with 2 input fields for rows and columns  -->
+            <Button
+                Width="80"
+                Height="40"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Background="White"
+                FontSize="16"
+                FontWeight="Bold"
+                Command="{Binding RunSimulationCommand}">
+                START
+            </Button>
+        </StackPanel>
+    </Grid>
 
 </Window>
