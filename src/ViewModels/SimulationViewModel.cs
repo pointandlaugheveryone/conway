@@ -13,14 +13,9 @@ public partial class SimulationViewModel : ViewModelBase
     private bool isRunning;
     partial void OnIsRunningChanged(bool value)
     {
-        if (value)
-        {
-            RunTimer.Start();
-        }
-        else
-        {
-            RunTimer.Stop();
-        }
+        if (value) RunTimer.Start();
+        else RunTimer.Stop();
+        
         TimerText = value ? "Pause" : "Run";
     }
     private int generations;

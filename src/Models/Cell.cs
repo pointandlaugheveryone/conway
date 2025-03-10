@@ -13,12 +13,12 @@ public partial class Cell : ObservableObject
         get => _isAlive;
         set
         {
-            // if _isAlive !=value, update the backing field _isAlive with value
+            // SetProperty checks if value differs (notes)
             if (SetProperty(ref _isAlive, value))
             {
-
-                CellColor = value ? new SolidColorBrush(Colors.White) : new SolidColorBrush(Colors.Black);
-                //TODO: when implementing age, create enum or something with (user defined) colors
+                string resourceKey = value ? "AliveColor" : "DeadColor"; // pull from Resources.axaml
+                var foundColor = (Color)Avalonia.Application.Current!.Resources[resourceKey]!;
+                CellColor = new SolidColorBrush(foundColor);
             }
         }
     }

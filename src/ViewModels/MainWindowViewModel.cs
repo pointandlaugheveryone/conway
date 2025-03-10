@@ -9,7 +9,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     public void RunSimulationCommand()
     {
-        SimulationViewModel simulationViewModel = new(250, 250, 50);
+        SimulationViewModel simulationViewModel = new(100, 100, 50); //TODO: user sets the parameters
 
         var simulationWindow = new SimulationWindow
         { // needed set the window to show with binding to vm
