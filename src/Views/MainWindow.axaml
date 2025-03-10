@@ -7,13 +7,13 @@
     xmlns:vm="using:Conway.ViewModels"
     Title="Conway's Game of Life'"
     Width="600"
-    Height="600"
+    Height="650"
     VerticalContentAlignment="Center"
-    d:DesignHeight="600"
     d:DesignWidth="600"
+    d:DesignHeight="650"
     x:DataType="vm:MainWindowViewModel"
     RequestedThemeVariant="Dark"
-    Icon="/Assets/avalonia-logo.ico"
+    Icon="/Assets/conway-logo.ico"
     mc:Ignorable="d">
 
     <Grid RowDefinitions="auto, auto">

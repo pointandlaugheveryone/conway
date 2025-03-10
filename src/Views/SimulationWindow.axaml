@@ -6,6 +6,7 @@
   xmlns:m="using:Conway.Models"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:vm="using:Conway.ViewModels"
+  Icon="/Assets/conway-logo.ico"
   Title="Conway's Game of Life"
   Width="600"
   Height="650"

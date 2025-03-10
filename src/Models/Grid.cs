@@ -3,59 +3,64 @@ using System.Linq;
 
 
 namespace Conway.Models;
-public class Grid {
-    public int Rows {get; } 
-    public int Columns {get; }
-    public Cell[,] Cells {get; }
-    private Cell[,] NextGeneration {get; set;}
+public class Grid
+{
+    public int Rows { get; }
+    public int Columns { get; }
+    public ObservableCollection<ObservableCollection<Cell>> Cells { get; }
 
-    public Grid(int rows, int columns) {
+    public Grid(int rows, int columns)
+    {
         this.Rows = rows;
         this.Columns = columns;
-        Cells = new Cell[rows, columns];
+        Cells = [];
 
-        NextGeneration = new Cell[rows, columns];
-
-        for (int row = 0; row < rows; row++) {
-            for (int column = 0; column < columns; column++) {
-                this.Cells[row, column] = new Cell(row, column, System.Random.Shared.NextDouble() > 0.7 ); // randomise alive/dead at init
-                this.Cells[row, column].GetNeighborCoords(rows, columns);
+        for (int row = 0; row < rows; row++)
+        {
+            ObservableCollection<Cell> cellRow = [];
+            for (int column = 0; column < columns; column++)
+            {
+                Cell currentCell = new(row, column, System.Random.Shared.NextDouble() > 0.9);
+                currentCell.GetNeighborCoords(rows, columns);
+                cellRow.Add(currentCell);
             }
+            Cells.Add(cellRow);
         }
     }
 
-    public ObservableCollection<Cell> ParseCells() {   // literally just to convert it because avalonia
-        ObservableCollection<Cell> cellList = new();
-        for (int row = 0; row < Rows; row++) {
-            for (int column = 0; column < Columns; column++) {
-                cellList.Add(Cells[row, column]);
-            }
-        }
-        return cellList;
-    }
     // pregenerate the next visible grid
-    public void GenerateNextGen() { 
+    public ObservableCollection<Cell> GenerateNext()
+    {
+        ObservableCollection<Cell> updatedCells = [];
         bool[,] nextStates = new bool[Rows, Columns];
 
-        for (int row = 0; row < this.Rows; row++) {
-            for (int column = 0; column < this.Columns; column++) {
-                Cell currentCell = this.Cells[row, column];
+        for (int row = 0; row < this.Rows; row++)
+        {
+            ObservableCollection<Cell> currentCellRow = Cells[row];
+            for (int column = 0; column < this.Columns; column++)
+            {
+                Cell currentCell = currentCellRow[column];
                 Cell[] Neighbors = currentCell.GetNeighbors(Cells);
                 int AliveNeighbors = Neighbors.Count(n => n.IsAlive);
-                bool nextAlive =
-                (currentCell.IsAlive && (AliveNeighbors == 2 || 
+
+                // actual conway logic
+                nextStates[row, column] =
+                (currentCell.IsAlive && (AliveNeighbors == 2 ||
                 AliveNeighbors == 3)) ||
                 (!currentCell.IsAlive && AliveNeighbors == 3);
-                
-                nextStates[row, column] = nextAlive;
             }
         }
-        for (int row = 0; row < Rows; row++) {
-            for (int column = 0; column < Columns; column++) {
-                Cells[row, column].IsAlive = nextStates[row, column];
+        for (int row = 0; row < Rows; row++)
+        {
+            ObservableCollection<Cell> currentCellRow = Cells[row];
+            for (int column = 0; column < Columns; column++)
+            {
+                currentCellRow[column].IsAlive = nextStates[row, column];
+                updatedCells.Add(currentCellRow[column]);
             }
         }
+        return updatedCells;
     }
 
-    
+
 }

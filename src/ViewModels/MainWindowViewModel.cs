@@ -1,16 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Conway.Views;
 
+
+// a lot TODO here
 namespace Conway.ViewModels;
-
 public partial class MainWindowViewModel : ViewModelBase
-{ 
-// TODO: entry menu with text & simulation settings 
+{
     [RelayCommand]
-    public void RunSimulationCommand() {
-        SimulationViewModel simulationViewModel = new(100,100,50);
+    public void RunSimulationCommand()
+    {
+        SimulationViewModel simulationViewModel = new(250, 250, 50);
 
-        var simulationWindow = new SimulationWindow { // set the window to show with binding to simulationvm
+        var simulationWindow = new SimulationWindow
+        { // needed set the window to show with binding to vm
             DataContext = simulationViewModel
         };
         simulationWindow.Show();
