@@ -12,17 +12,8 @@ public partial class Cell : ObservableObject {
         get => _isAlive;
         set {
             if (SetProperty(ref _isAlive, value)) {
-                var brushResourceKey = value ? "AliveColor" : "DeadColor";
-                if (Application.Current!.Resources.TryGetValue(brushResourceKey, out var resource)) {
-                    if (resource is Color color)
-                        CellColor = new SolidColorBrush(color);
-                    else if (resource is SolidColorBrush sb)
-                        CellColor = new SolidColorBrush(sb.Color);
-                }
-                else {
-                    // Fallback colors if resource isn't defined
-                    CellColor = value ? new SolidColorBrush(Colors.White) : new SolidColorBrush(Colors.Black);
-                }
+                //TODO: if implementing age, create enum with (user defined) colors 
+                CellColor = value ? new SolidColorBrush(Colors.White) : new SolidColorBrush(Colors.Black);
             }
         }
     }
@@ -30,8 +21,8 @@ public partial class Cell : ObservableObject {
     public int Y {get;}
 
     [ObservableProperty]
-    private SolidColorBrush cellColor = new SolidColorBrush(Colors.Black);
-    public int[,] NeighborCoords {get;} = new int[8,2];
+    private SolidColorBrush cellColor = new(Colors.Black); // default set color to init a blank windwo
+    public int[,] NeighborCoords {get;} = new int[8,2]; // 8 neighbors, 2 offset options
 
 
     public Cell(int x, int y, bool isAlive) {
@@ -48,7 +39,7 @@ public partial class Cell : ObservableObject {
             {+1, -1}, {+1, 0}, {+1, +1} 
         };
         // to include neighors from opposite of the visible grid for the edge cells
-        // basically a torus-shaped grid
+        // torus-shaped grid.
         for (int i = 0; i < 8; i++) {
             NeighborCoords[i,0] = (this.X + offsets[i,0] + rows) % rows;
             NeighborCoords[i,1] = (this.Y + offsets[i,1] + columns) % columns;
